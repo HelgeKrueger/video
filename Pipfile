@@ -13,6 +13,7 @@ matplotlib = "*"
 tensorflow-gpu = "*"
 tensorflow-hub = "*"
 moviepy = "*"
+vidstab = "*"
 
 [requires]
 python_version = "3.6"
