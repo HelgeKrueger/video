@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 
+from PIL import ImageColor
+
 import tensorflow as tf
 import tensorflow_hub as hub
 
@@ -16,6 +18,9 @@ class Detector:
             tf.global_variables_initializer(), tf.tables_initializer()
                 ])
 
+        self.colormap = list(ImageColor.colormap.keys())
+        self.number_of_colors = len(self.colormap)
+
     def detect(self, frame):
         input_frame = np.array(np.expand_dims(frame, 0)/256)
 
@@ -29,13 +34,12 @@ class Detector:
         good_frames = result['detection_scores'] >  self.threshold
         entities = [b.decode('ascii') for b in result['detection_class_entities'][good_frames]]
         boxes = result['detection_boxes'][good_frames]
-        print("entities", entities, "boxes", boxes)
 
         count = len(entities)
 
         for j in range(count):
             box = self.convert_box(boxes[j], width, height)
-            self.add_box_to_frame(frame, box, entities[j], (0, 255, 0))
+            self.add_box_to_frame(frame, box, entities[j])
 
         return frame
 
@@ -43,10 +47,16 @@ class Detector:
         y1, x1, y2, x2 = box
         return (int(x1 * width), int(y1 * height)), (int(x2 * width), int(y2 * height))
 
-    def add_box_to_frame(self, frame, box, title, color):
+    def add_box_to_frame(self, frame, box, title):
         c1, c2 = box
         font = cv2.FONT_HERSHEY_SIMPLEX
+        color = self.determine_color(title)
         cv2.putText(frame,title,(c1[0] + 20, c1[1] + 100), font, 1, color,3,cv2.LINE_AA)
         cv2.rectangle(frame, c1, c2, color, 3)
+
+    def determine_color(self, title):
+        color_name = self.colormap[hash(title) % self.number_of_colors]
+        return ImageColor.getrgb(color_name)
+
 
 
