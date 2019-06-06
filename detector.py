@@ -6,6 +6,7 @@ from PIL import ImageColor
 import tensorflow as tf
 import tensorflow_hub as hub
 
+
 class Detector:
     def __init__(self, module_handle="https://tfhub.dev/google/faster_rcnn/openimages_v4/inception_resnet_v2/1", threshold=0.1):
         self.session = tf.Session()
@@ -16,7 +17,7 @@ class Detector:
 
         self.session.run([
             tf.global_variables_initializer(), tf.tables_initializer()
-                ])
+        ])
 
         self.colormap = list(ImageColor.colormap.keys())
         self.number_of_colors = len(self.colormap)
@@ -31,8 +32,9 @@ class Detector:
         frame = frame.copy()
         height, width, _ = frame.shape
 
-        good_frames = result['detection_scores'] >  self.threshold
-        entities = [b.decode('ascii') for b in result['detection_class_entities'][good_frames]]
+        good_frames = result['detection_scores'] > self.threshold
+        entities = [b.decode('ascii')
+                    for b in result['detection_class_entities'][good_frames]]
         boxes = result['detection_boxes'][good_frames]
 
         count = len(entities)
@@ -51,12 +53,10 @@ class Detector:
         c1, c2 = box
         font = cv2.FONT_HERSHEY_SIMPLEX
         color = self.determine_color(title)
-        cv2.putText(frame,title,(c1[0] + 20, c1[1] + 100), font, 1, color,3,cv2.LINE_AA)
+        cv2.putText(
+            frame, title, (c1[0] + 20, c1[1] + 100), font, 1, color, 3, cv2.LINE_AA)
         cv2.rectangle(frame, c1, c2, color, 3)
 
     def determine_color(self, title):
         color_name = self.colormap[hash(title) % self.number_of_colors]
         return ImageColor.getrgb(color_name)
-
-
-

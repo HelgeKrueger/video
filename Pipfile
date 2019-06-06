@@ -21,6 +21,7 @@ google-api-python-client = "*"
 google-auth-oauthlib = "*"
 google-auth-httplib2 = "*"
 oauth2client = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.6"

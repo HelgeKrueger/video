@@ -25,6 +25,7 @@ from oauth2client.tools import run_flow
 
 scopes = ["https://www.googleapis.com/auth/youtube.upload"]
 
+
 def get_credentials():
     client_secrets_file = "./secrets/client_secret_740234423024-m2hdv91nbse10mfldt162njrd9matut0.apps.googleusercontent.com.json"
 
@@ -34,33 +35,34 @@ def get_credentials():
     if credentials is None or credentials.invalid:
         flow = flow_from_clientsecrets(client_secrets_file, scope=scopes[0])
         credentials = run_flow(flow, storage, http=httplib2.Http())
-    
+
     return credentials
 
+
 def upload_file(youtube, filename, title, description):
-    upload_body={
+    upload_body = {
         "snippet": {
-          "categoryId": "22",
-          "description": "Description of uploaded video.",
-          "title": "More empty road"
-         },
-         "status": {
-           "privacyStatus": "public"
-         }
+            "categoryId": "22",
+            "description": "Description of uploaded video.",
+            "title": "More empty road"
+        },
+        "status": {
+            "privacyStatus": "public"
+        }
     }
-    media=MediaFileUpload(filename, resumable=True)
+    media = MediaFileUpload(filename, resumable=True)
 
     try:
         request = youtube.videos().insert(
-                part="snippet,status",
+            part="snippet,status",
             body=upload_body
             media_body=media
         )
         response = None
         # response = request.execute()
         while response is None:
-              status, response = request.next_chunk()
-              if status:
+            status, response = request.next_chunk()
+            if status:
                 print("Uploaded %d%%." % int(status.progress() * 100))
         print("Upload Complete!")
         print(response)
@@ -68,6 +70,7 @@ def upload_file(youtube, filename, title, description):
         print(err)
         print(err.content)
         print(err.error_details)
+
 
 def create_youtube():
     api_service_name = "youtube"
@@ -80,6 +83,7 @@ def create_youtube():
 
     return youtube
 
+
 def main():
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
@@ -87,6 +91,7 @@ def main():
 
     youtube = create_youtube()
     upload_file(youtube, "emptyroad2.mp4", "empty road", "blablabla")
+
 
 if __name__ == "__main__":
     main()

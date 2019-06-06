@@ -2,6 +2,7 @@ import hashlib
 
 from PIL import ImageColor
 
+
 class Colorpicker:
     def __init__(self):
         self.colormap = list(ImageColor.colormap.keys())
