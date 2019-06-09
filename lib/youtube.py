@@ -43,8 +43,8 @@ def upload_file(youtube, filename, title, description):
     upload_body = {
         "snippet": {
             "categoryId": "22",
-            "description": "Description of uploaded video.",
-            "title": "More empty road"
+            "description": description,
+            "title": title,
         },
         "status": {
             "privacyStatus": "public"
@@ -55,7 +55,7 @@ def upload_file(youtube, filename, title, description):
     try:
         request = youtube.videos().insert(
             part="snippet,status",
-            body=upload_body
+            body=upload_body,
             media_body=media
         )
         response = None
@@ -90,7 +90,7 @@ def main():
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
     youtube = create_youtube()
-    upload_file(youtube, "emptyroad2.mp4", "empty road", "blablabla")
+    upload_file(youtube, "output/tmp.mp4", "open road", "A strech of open road")
 
 
 if __name__ == "__main__":
