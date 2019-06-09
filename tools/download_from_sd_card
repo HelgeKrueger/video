@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -xe
+
+cd ..
+
+sudo mount /dev/mmcblk0p1 /media/helge
+
+mkdir --parents videos/incoming
+
+sudo mv --verbose /media/helge/DCIM/100GOPRO/* videos/incoming
+
+sudo umount /media/helge
