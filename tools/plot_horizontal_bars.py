@@ -60,3 +60,5 @@ for k in labels:
              fill_color=color, line_color=color)
 
 show(column(fig_merged, fig))
+
+print("Intervals not containing bad keys", object_data.intervals_not_containing(to_merge))

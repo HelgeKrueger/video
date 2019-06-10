@@ -60,5 +60,21 @@ class ObjectData:
 
         return [i for i in merged_intervals]
 
+    def intervals_not_containing(self, keys, length=60):
+        intervals_containing = interval(*self.intervals_for_list(keys))
+        intervals_containing = intervals_containing + interval([0, length])
+
+        intervals_not_containing = []
+        start_point = None
+
+        for i in intervals_containing:
+            if start_point is not None:
+                intervals_not_containing.append([start_point, i[0]])
+
+            start_point = i[1] - 60
+
+        return intervals_not_containing
+
+
     def get_keys(self):
         return [k for k in self.data.keys() if k != 's']
