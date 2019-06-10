@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 
 from tqdm import tqdm
+from interval import interval
 
 
 def safe_entities(d):
@@ -50,6 +51,13 @@ class ObjectData:
             intervals.append([last_seen, len(self.data)])
 
         return intervals
+
+    def intervals_for_list(self, keys):
+        merged_intervals = interval(*self.compute_intervals(keys[0]))
+        for key in keys[1:]:
+            merged_intervals = merged_intervals | interval(*self.compute_intervals(key))
+
+        return [i for i in merged_intervals]
 
     def get_keys(self):
         return [k for k in self.data.keys() if k != 's']
