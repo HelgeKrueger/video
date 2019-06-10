@@ -47,6 +47,7 @@ detector = Detector(module_handle=module_handle, threshold=args.threshold)
 
 result_list = []
 
+
 def convert_result(result):
     if args.filter_threshold:
         good = result['detection_scores'] > args.filter_threshold
@@ -68,7 +69,8 @@ for frame in tqdm(clip.iter_frames()):
         result = detector.detect(frame)
         result_list.append(convert_result(result))
         if args.display:
-            frame = detector.add_boxes(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), result)
+            frame = detector.add_boxes(cv2.cvtColor(
+                frame, cv2.COLOR_BGR2RGB), result)
             cv2.imshow('image', frame)
             cv2.waitKey(1)
     else:

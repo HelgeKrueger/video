@@ -5,11 +5,13 @@ import pandas as pd
 
 from tqdm import tqdm
 
+
 def safe_entities(d):
     if d is None:
         return []
-    else: 
+    else:
         return d['entities']
+
 
 class ObjectData:
     def __init__(self):
@@ -18,7 +20,7 @@ class ObjectData:
 
     def load(self, filename):
         input_data = json.load(open(filename, 'r'))
-        
+
         entities = [safe_entities(d) for d in input_data]
         self._fill_dataframe(entities)
 
@@ -43,10 +45,10 @@ class ObjectData:
             if count == 0 and last_seen is not None:
                 intervals.append([last_seen, idx])
                 last_seen = None
-                
+
         if last_seen is not None:
             intervals.append([last_seen, len(self.data)])
-                
+
         return intervals
 
     def get_keys(self):

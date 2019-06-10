@@ -27,21 +27,21 @@ object_data.data.head()
 
 for k in labels:
     intervals = object_data.compute_intervals(k)
-    
+
     for i in intervals:
         plot_data = plot_data.append({
             'key': k,
             'start': i[0],
             'end': i[1]
         }, ignore_index=True)
-        
+
 labels.reverse()
 
 colorpicker = Colorpicker()
 
 fig = figure(y_range=labels, width=1600)
 for k in labels:
-    color=colorpicker.for_title(k)
+    color = colorpicker.for_title(k)
     color = (color[0]/2, color[1]/2, color[2]/3)
     fig.hbar(y="key", left='start', right='end', height=0.5,
              source=plot_data[plot_data['key'] == k],

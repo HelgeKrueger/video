@@ -25,7 +25,8 @@ class YouTube:
         credentials = storage.get()
 
         if credentials is None or credentials.invalid:
-            flow = flow_from_clientsecrets(client_secrets_file, scope=scopes[0])
+            flow = flow_from_clientsecrets(
+                client_secrets_file, scope=scopes[0])
             credentials = run_flow(flow, storage, http=httplib2.Http())
 
         self.credentials = credentials
@@ -74,4 +75,3 @@ class YouTube:
             print(err)
             print(err.content)
             print(err.error_details)
-
