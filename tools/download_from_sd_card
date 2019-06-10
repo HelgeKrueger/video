@@ -2,12 +2,10 @@
 
 set -xe
 
-cd ..
-
-sudo mount /dev/mmcblk0p1 /media/helge
+pmount /media/gopro_sdcard
 
 mkdir --parents videos/incoming
 
-sudo mv --verbose /media/helge/DCIM/100GOPRO/* videos/incoming
+mv --verbose /media/gopro_sdcard/DCIM/100GOPRO/* videos/incoming
 
-sudo umount /media/helge
+pumount /media/gopro_sdcard

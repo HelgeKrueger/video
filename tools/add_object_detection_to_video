@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-cd ..
-
 for file in $(ls videos/incoming/*.MP4); do
     if [ ! -f "$file.json" ]; then
         echo "Computing for $file"
