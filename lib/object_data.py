@@ -27,7 +27,7 @@ class ObjectData:
 
     def _fill_dataframe(self, entities):
         self.data = pd.DataFrame()
-        self.data['s'] = range(int(len(entities) / 30))
+        self.data['s'] = range(int(len(entities) / 30) + 1)
         for idx, ent in tqdm(enumerate(entities)):
             names, counts = np.unique(ent, return_counts=True)
             for name, count in zip(names, counts):
@@ -53,6 +53,7 @@ class ObjectData:
         return intervals
 
     def intervals_for_list(self, keys):
+        keys = [k for k in keys if k in self.get_keys()]
         merged_intervals = interval(*self.compute_intervals(keys[0]))
         for key in keys[1:]:
             merged_intervals = merged_intervals | interval(*self.compute_intervals(key))
