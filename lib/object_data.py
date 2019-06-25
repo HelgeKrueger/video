@@ -18,11 +18,12 @@ class ObjectData:
     def __init__(self):
         self.data = pd.DataFrame()
         self.entities = []
+        self.input_data = None
 
     def load(self, filename):
-        input_data = json.load(open(filename, 'r'))
+        self.input_data = json.load(open(filename, 'r'))
 
-        entities = [safe_entities(d) for d in input_data]
+        entities = [safe_entities(d) for d in self.input_data]
         self._fill_dataframe(entities)
 
     def _fill_dataframe(self, entities):
@@ -78,3 +79,27 @@ class ObjectData:
 
     def get_keys(self):
         return [k for k in self.data.keys() if k != 's']
+
+    def times_object_appears(self, key):
+        return self.data[self.data[key] > 0]['s'].to_list()
+
+    def determine_frame_containing_key(self, s, key, fps=30):
+        result = []
+        for t in range(0, int(fps)):
+            tt = s * int(fps) + t
+            data = self.input_data[tt]
+            if data and key in data['entities']:
+                indices = [i for i, k in enumerate(data['entities']) if k == key]
+                boxes = [data['boxes'][i] for i in indices]
+                result.append({'time': s * fps + t, 'boxes': boxes})
+
+        return result
+
+    def get_instances_key_appears(self, key, fps=30):
+        times = self.times_object_appears(key)
+        instances = []
+        for t in times:
+            instances = instances + self.determine_frame_containing_key(t, key, fps=fps)
+
+        return instances
+
