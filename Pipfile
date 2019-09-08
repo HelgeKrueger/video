@@ -26,3 +26,8 @@ pyinterval = "*"
 
 [requires]
 python_version = "3.6"
+
+[scripts]
+list = "python tools/list.py"
+next = "python tools/process_next_video_segment.py"
+done = "python tools/done_with_all.py"

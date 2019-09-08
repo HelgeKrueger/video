@@ -16,3 +16,22 @@ def test_append_and_getting_last_entry():
     data = vfs.get_first_unseen()
     assert data['filename'] == 'two'
     assert data['index'] == 1
+
+def test_set_processing_to_done():
+    vfs = VideoFileSegments(filename='/tmp/test.csv')
+
+    vfs.append_entry('one', [0, 1])
+    vfs.append_entry('two', [4, 5])
+
+    data = vfs.get_first_unseen()
+    vfs.set_status(data['index'], 'processing')
+
+    data = vfs.get_first_unseen()
+    vfs.set_status(data['index'], 'processing')
+
+    assert (vfs.data['status'] == 'processing').sum() == 2
+
+    vfs.update_status_from_to('processing', 'done')
+
+    assert (vfs.data['status'] == 'processing').sum() == 0
+    assert (vfs.data['status'] == 'done').sum() == 2

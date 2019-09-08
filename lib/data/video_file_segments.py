@@ -38,3 +38,5 @@ class VideoFileSegments:
     def set_status(self, index, status):
         self.data.at[index, 'status'] = status
 
+    def update_status_from_to(self, old_status, new_status):
+        self.data = self.data.replace({'status': {old_status: new_status}})
