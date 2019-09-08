@@ -15,6 +15,9 @@ def test_append_and_getting_last_entry():
 
     data = vfs.get_first_unseen()
 
+    assert vfs.count_with_status('unseen') == 2
+    assert vfs.count_with_status('processing') == 0
+
     assert data['filename'] == 'one'
     assert data['index'] == 0
 
@@ -23,6 +26,9 @@ def test_append_and_getting_last_entry():
     data = vfs.get_first_unseen()
     assert data['filename'] == 'two'
     assert data['index'] == 1
+
+    assert vfs.count_with_status('unseen') == 1
+    assert vfs.count_with_status('processing') == 1
 
 
 def test_set_processing_to_done():
