@@ -24,7 +24,8 @@ if not os.path.isfile(filename):
 
 clip = VideoFileClip(filename)
 
-subclip = clip.without_audio().subclip(t_start=unseen['start'], t_end=unseen['end'])
+subclip = clip.without_audio().subclip(
+    t_start=unseen['start'], t_end=unseen['end'])
 
 subclip.write_videofile("output/video{}.mp4".format(unseen['index']))
 

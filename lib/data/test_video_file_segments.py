@@ -1,5 +1,12 @@
 from .video_file_segments import VideoFileSegments
 
+
+def test_unseen_none_for_empty_file():
+    vfs = VideoFileSegments(filename='/tmp/test.csv')
+
+    assert vfs.get_first_unseen() is None
+
+
 def test_append_and_getting_last_entry():
     vfs = VideoFileSegments(filename='/tmp/test.csv')
 
@@ -16,6 +23,7 @@ def test_append_and_getting_last_entry():
     data = vfs.get_first_unseen()
     assert data['filename'] == 'two'
     assert data['index'] == 1
+
 
 def test_set_processing_to_done():
     vfs = VideoFileSegments(filename='/tmp/test.csv')

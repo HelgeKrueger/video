@@ -24,7 +24,8 @@ plot_data = pd.DataFrame(columns=['key', 'start', 'end'])
 
 labels = object_data.get_keys()
 
-to_merge = ['Car', 'Wheel', 'Van', 'Land vehicle', 'Person', 'Motorcycle', 'Tire', 'Train', 'Bicycle', 'Vehicle registration plate', 'Man', 'Bicycle wheel', 'Footwear', 'Truck', 'Woman', 'Bicycle helmet', 'Clothing']
+to_merge = ['Car', 'Wheel', 'Van', 'Land vehicle', 'Person', 'Motorcycle', 'Tire', 'Train', 'Bicycle',
+            'Vehicle registration plate', 'Man', 'Bicycle wheel', 'Footwear', 'Truck', 'Woman', 'Bicycle helmet', 'Clothing']
 
 for i in object_data.intervals_for_list(to_merge):
     plot_data = plot_data.append({
@@ -35,7 +36,7 @@ for i in object_data.intervals_for_list(to_merge):
 
 fig_merged = figure(y_range=['Merged'], height=200, width=1600)
 fig_merged.hbar(y="key", left='start', right='end', height=0.5,
-         source=plot_data)
+                source=plot_data)
 
 for k in labels:
     intervals = object_data.compute_intervals(k)
@@ -61,4 +62,5 @@ for k in labels:
 
 show(column(fig_merged, fig))
 
-print("Intervals not containing bad keys", object_data.intervals_not_containing(to_merge))
+print("Intervals not containing bad keys",
+      object_data.intervals_not_containing(to_merge))

@@ -57,7 +57,8 @@ class ObjectData:
         keys = [k for k in keys if k in self.get_keys()]
         merged_intervals = interval(*self.compute_intervals(keys[0]))
         for key in keys[1:]:
-            merged_intervals = merged_intervals | interval(*self.compute_intervals(key))
+            merged_intervals = merged_intervals | interval(
+                *self.compute_intervals(key))
 
         return [i for i in merged_intervals]
 
@@ -76,7 +77,6 @@ class ObjectData:
 
         return intervals_not_containing
 
-
     def get_keys(self):
         return [k for k in self.data.keys() if k != 's']
 
@@ -89,7 +89,8 @@ class ObjectData:
             tt = s * int(fps) + t
             data = self.input_data[tt]
             if data and key in data['entities']:
-                indices = [i for i, k in enumerate(data['entities']) if k == key]
+                indices = [i for i, k in enumerate(
+                    data['entities']) if k == key]
                 boxes = [data['boxes'][i] for i in indices]
                 result.append({'time': s * fps + t, 'boxes': boxes})
 
@@ -99,7 +100,7 @@ class ObjectData:
         times = self.times_object_appears(key)
         instances = []
         for t in times:
-            instances = instances + self.determine_frame_containing_key(t, key, fps=fps)
+            instances = instances + \
+                self.determine_frame_containing_key(t, key, fps=fps)
 
         return instances
-

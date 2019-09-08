@@ -2,7 +2,8 @@ import argparse
 
 from lib.data import VideoFileSegments
 
-parser = argparse.ArgumentParser(description='Sets the status of all processing videos')
+parser = argparse.ArgumentParser(
+    description='Sets the status of all processing videos')
 parser.add_argument('--status', help='new status',
                     default='done')
 
