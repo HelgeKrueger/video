@@ -1,3 +1,4 @@
+from lib.data import VideoFileSegments
 import argparse
 
 from lib.youtube import YouTube
@@ -8,7 +9,6 @@ parser.add_argument('--description', help='description of video', default=None)
 
 args = parser.parse_args()
 
-from lib.data import VideoFileSegments
 
 vfs = VideoFileSegments()
 
@@ -23,7 +23,7 @@ print("Uploading video", video_filename, "with title", args.title)
 
 youtube = YouTube()
 youtube.init()
- 
+
 youtube.upload_file(video_filename, args.title, args.description)
 
 vfs.update_status_from_to('processing', 'youtube')

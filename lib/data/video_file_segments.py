@@ -30,7 +30,6 @@ class VideoFileSegments:
     def get_first_unseen(self):
         return self.get_first_with_status('unseen')
 
-
     def get_first_with_status(self, status):
         unseen_data = self.data[self.data['status'] == status]
         if len(unseen_data) == 0:
