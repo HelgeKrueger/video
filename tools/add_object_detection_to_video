@@ -3,7 +3,8 @@
 for file in $(ls videos/incoming/*.MP4); do
     if [ ! -f "$file.json" ]; then
         echo "Computing for $file"
-        pipenv run python tools/create_object_information.py --input $file  --threshold=0.2 --filter_threshold=0.2 --nodisplay
-        pipenv run python tools/add_object_information_to_csv_data.py --input "$file.json"
+        python tools/create_object_information.py --input $file  --threshold=0.2 --filter_threshold=0.2 --nodisplay
+        python tools/store_meta_information.py --input $file
+        python tools/add_object_information_to_csv_data.py --input "$file.json"
     fi
 done

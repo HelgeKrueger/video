@@ -24,7 +24,13 @@ print("Uploading video", video_filename, "with title", args.title)
 youtube = YouTube()
 youtube.init()
 
-youtube.upload_file(video_filename, args.title, args.description)
+if args.description:
+    description = args.description + \
+        "\n\nCode for processing video available at https://github.com/HelgeKrueger/video"
+else:
+    description = "Code for processing video available at https://github.com/HelgeKrueger/video"
+
+youtube.upload_file(video_filename, args.title, description)
 
 vfs.update_status_from_to('processing', 'youtube')
 vfs.save()
