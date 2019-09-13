@@ -1,3 +1,8 @@
+# Setup
+
+Configuration of the strava client is done in the file `secrets/strava.yml`.
+
+
 # Processing video
 
 ## Automatic mounting sd card

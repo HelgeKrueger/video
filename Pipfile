@@ -23,6 +23,7 @@ google-auth-httplib2 = "*"
 oauth2client = "*"
 autopep8 = "*"
 pyinterval = "*"
+requests = "*"
 
 [requires]
 python_version = "3.6"
