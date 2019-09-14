@@ -1,3 +1,7 @@
+from lib.image import Detector
+import tensorflow as tf
+import tensorflow_hub as hub
+from moviepy.editor import VideoFileClip
 import argparse
 import json
 
@@ -21,11 +25,6 @@ fh.setLevel(logging.DEBUG)
 fh.setFormatter(formatter)
 log.addHandler(fh)
 
-from moviepy.editor import VideoFileClip
-import tensorflow_hub as hub
-import tensorflow as tf
-
-from lib.image import Detector
 
 parser = argparse.ArgumentParser(description='Detects objects in video')
 parser.add_argument('--input', help='video stream')

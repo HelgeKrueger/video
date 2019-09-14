@@ -1,10 +1,27 @@
+from lib.data import VideoFileSegments
+from lib.object_data import ObjectData
 import argparse
 import os
 
 import pandas as pd
 
-from lib.object_data import ObjectData
-from lib.data import VideoFileSegments
+
+import logging
+
+# get TF logger
+log = logging.getLogger('tensorflow')
+log.setLevel(logging.DEBUG)
+
+# create formatter and add it to the handlers
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# create file handler which logs even debug messages
+fh = logging.FileHandler('tensorflow.log')
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)
+log.addHandler(fh)
+
 
 parser = argparse.ArgumentParser(
     description='Adds to csv file with information about interesting parts in video')
