@@ -1,6 +1,7 @@
 videos
 .ipynb_checkpoints
 *.swp
+*.pyc
 secrets
 output
 interesting_video_parts.csv

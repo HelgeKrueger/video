@@ -1,4 +1,5 @@
 from lib.data import VideoFileSegments
+from lib.data import ProcessingInformation
 import argparse
 
 from lib.youtube import YouTube
@@ -11,6 +12,7 @@ args = parser.parse_args()
 
 
 vfs = VideoFileSegments()
+pi = ProcessingInformation()
 
 if vfs.count_with_status('processing') != 1:
     print("Need to process exactly one video")
@@ -28,9 +30,10 @@ if args.description:
     description = args.description + \
         "\n\nCode for processing video available at https://github.com/HelgeKrueger/video"
 else:
-    description = "Code for processing video available at https://github.com/HelgeKrueger/video"
+    description = pi.get_description()
 
 youtube.upload_file(video_filename, args.title, description)
 
 vfs.update_status_from_to('processing', 'youtube')
 vfs.save()
+pi.done()
