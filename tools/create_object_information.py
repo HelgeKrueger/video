@@ -5,12 +5,27 @@ import cv2
 import numpy as np
 from tqdm import tqdm
 
-import tensorflow as tf
-import tensorflow_hub as hub
+import logging
+
+# get TF logger
+log = logging.getLogger('tensorflow')
+log.setLevel(logging.DEBUG)
+
+# create formatter and add it to the handlers
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# create file handler which logs even debug messages
+fh = logging.FileHandler('tensorflow.log')
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)
+log.addHandler(fh)
 
 from moviepy.editor import VideoFileClip
+import tensorflow_hub as hub
+import tensorflow as tf
 
-from detector import Detector
+from lib.image import Detector
 
 parser = argparse.ArgumentParser(description='Detects objects in video')
 parser.add_argument('--input', help='video stream')
