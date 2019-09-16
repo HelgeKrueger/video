@@ -25,7 +25,8 @@ class ProcessingInformation:
         self.data['style_transfer_image'] = image
 
     def done(self):
-        os.remove(self.filename)
+        if os.path.isfile(self.filename):
+            os.remove(self.filename)
 
     def save(self):
         with open(self.filename, 'w') as f:

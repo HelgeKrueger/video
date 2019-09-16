@@ -1,3 +1,13 @@
+# Video pipeline
+
+Scripts to automate processing videos captured while cycling
+using a gopro. The tasks are
+- retrieve videos from gopro
+- determine interesting pieces in the video
+- extract interesting subclips
+- perform video transformations such as style transfer
+- upload videos to youtube
+
 # Setup
 
 Configuration of the strava client is done in the file `secrets/strava.yml`.

@@ -25,3 +25,7 @@ def test_description_with_style_transfer():
     assert image_url in pi2.get_description()
 
     pi2.done()
+
+def test_calling_done_without_save():
+    pi = ProcessingInformation()
+    pi.done()
