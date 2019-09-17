@@ -1,4 +1,5 @@
 from lib.image import Detector
+from lib.data import ObjectDataForVideo
 import tensorflow as tf
 import tensorflow_hub as hub
 from moviepy.editor import VideoFileClip
@@ -58,38 +59,22 @@ module_handles = {
 module_handle = module_handles[args.model]
 
 detector = Detector(module_handle=module_handle, threshold=args.threshold)
-
-result_list = []
-
-
-def convert_result(result):
-    if args.filter_threshold:
-        good = result['detection_scores'] > args.filter_threshold
-    else:
-        good = np.ones_like(result['detection_scores'], dtype=bool)
-    boxes = result['detection_boxes'][good].tolist()
-    scores = result['detection_scores'][good].tolist()
-    entities = [b.decode('ascii')
-                for b in result['detection_class_entities'][good].tolist()]
-    return {
-        'boxes': boxes,
-        'scores': scores,
-        'entities': entities
-    }
-
+object_data = ObjectDataForVideo(
+    args.input + '.json', filter_threshold=args.filter_threshold)
 
 for frame in tqdm(clip.iter_frames()):
     if len(result_list) % args.skipframes == 0:
         result = detector.detect(frame)
-        result_list.append(convert_result(result))
+        object_data.append_raw_data(result)
         if args.display:
             frame = detector.add_boxes(cv2.cvtColor(
                 frame, cv2.COLOR_BGR2RGB), result)
             cv2.imshow('image', frame)
             cv2.waitKey(1)
     else:
-        result_list.append(None)
+        object_data.append_none()
 
-json.dump(result_list, open(args.input + '.json', 'w'))
+object_data.save()
+
 
 cv2.destroyAllWindows()

@@ -34,7 +34,8 @@ tf.enable_eager_execution()
 
 parser = argparse.ArgumentParser(
     description='Applies style transfer to a video')
-parser.add_argument('--input', help='input stream to style transfer to', default=None)
+parser.add_argument(
+    '--input', help='input stream to style transfer to', default=None)
 parser.add_argument('--style_image', help='url of image to get style from',
                     default='https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg')
 parser.add_argument('--output', help='output mp4 file',
