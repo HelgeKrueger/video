@@ -32,16 +32,18 @@ class Detector:
         frame = frame.copy()
         height, width, _ = frame.shape
 
-        good_frames = result['detection_scores'] > self.threshold
-        entities = [b.decode('ascii')
-                    for b in result['detection_class_entities'][good_frames]]
-        boxes = result['detection_boxes'][good_frames]
+        if 'boxes' in result:
+            boxes = result['boxes']
+            entities = result['entities']
+        else:
+            good_frames = result['detection_scores'] > self.threshold
+            entities = [b.decode('ascii')
+                        for b in result['detection_class_entities'][good_frames]]
+            boxes = result['detection_boxes'][good_frames]
 
-        count = len(entities)
-
-        for j in range(count):
-            box = self.convert_box(boxes[j], width, height)
-            self.add_box_to_frame(frame, box, entities[j])
+        for raw_box, entity in zip(boxes, entities):
+            box = self.convert_box(raw_box, width, height)
+            self.add_box_to_frame(frame, box, entity)
 
         return frame
 
