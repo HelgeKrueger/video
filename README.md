@@ -54,6 +54,12 @@ one sets all `processing` entries to `done`.
 
 ## Uploading to youtube
 
+To setup youtube, put you need to putan oauth2 credentials json with redirect url http://localhost:8080 in the folder `./secrets/`. Then run
+```
+pipenv run init_youtube
+``` 
+to create the credentials. You will be asked to permit access by this application.
+
 By running
 ```
 pipenv run python tools/upload_video.py --input $FILE --title $TITLE --description $DESCRIPTION

@@ -1,5 +1,6 @@
 import httplib2
 import os
+from glob import glob
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -19,7 +20,8 @@ class YouTube:
         self.youtube = None
 
     def get_credentials(self):
-        client_secrets_file = "./secrets/client_secret_740234423024-occj070rtcrheme1fpvlr9a3avsoeoq5.apps.googleusercontent.com.json"
+        client_secrets_files  = glob("./secrets/client_secret_*.json")
+        client_secrets_file = client_secrets_files[0]
 
         storage = Storage(self.storage_file)
         credentials = storage.get()

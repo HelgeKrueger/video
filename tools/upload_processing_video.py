@@ -1,6 +1,7 @@
 from lib.data import VideoFileSegments
 from lib.data import ProcessingInformation
 import argparse
+import sys
 
 from lib.youtube import YouTube
 
