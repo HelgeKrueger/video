@@ -24,9 +24,10 @@ oauth2client = "*"
 autopep8 = "*"
 pyinterval = "*"
 requests = "*"
+pandas = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
 
 [scripts]
 list = "python tools/list.py"

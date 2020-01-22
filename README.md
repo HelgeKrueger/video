@@ -36,7 +36,10 @@ Also the file `interesting_video_parts.csv` is being updated with segments that 
 ```
 pipenv run next
 ```
-extracts the next subclib marked as `unseen` in `interesting_video_parts.csv` and marks it as `processing`.
+extracts the next subclib marked as `unseen` in `interesting_video_parts.csv` and marks it as `processing`. With the following command, one can then watch the video
+```
+pipenv run watch
+```
 
 A list of video segments can be displayed using
 ```
@@ -63,6 +66,6 @@ one can upload the video to youtube
 ## Horizontal plots of what is visible in a video
 
 ```
-pipenv run python tools/plot_hoticontal_bars.py --input videos/incoming/xxx.MP$.json
+pipenv run python tools/plot_horizontal_bars.py --input videos/incoming/xxx.MP4.json
 ```
 creates a horizontal plot of what is seen in the video.

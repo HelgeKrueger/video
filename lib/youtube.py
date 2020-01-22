@@ -19,7 +19,7 @@ class YouTube:
         self.youtube = None
 
     def get_credentials(self):
-        client_secrets_file = "./secrets/client_secret_740234423024-m2hdv91nbse10mfldt162njrd9matut0.apps.googleusercontent.com.json"
+        client_secrets_file = "./secrets/client_secret_740234423024-occj070rtcrheme1fpvlr9a3avsoeoq5.apps.googleusercontent.com.json"
 
         storage = Storage(self.storage_file)
         credentials = storage.get()
