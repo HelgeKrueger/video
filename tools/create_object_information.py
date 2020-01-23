@@ -1,13 +1,9 @@
 from lib.image import Detector
 from lib.data import ObjectDataForVideo
-import tensorflow as tf
-import tensorflow_hub as hub
 from moviepy.editor import VideoFileClip
 import argparse
-import json
 
 import cv2
-import numpy as np
 from tqdm import tqdm
 
 import logging
@@ -63,7 +59,7 @@ object_data = ObjectDataForVideo(
     args.input + '.json', filter_threshold=args.filter_threshold)
 
 for frame in tqdm(clip.iter_frames()):
-    if len(result_list) % args.skipframes == 0:
+    if len(object_data.data) % args.skipframes == 0:
         result = detector.detect(frame)
         object_data.append_raw_data(result)
         if args.display:

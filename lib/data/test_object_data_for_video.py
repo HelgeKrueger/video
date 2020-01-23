@@ -4,7 +4,7 @@ from .object_data_for_video import ObjectDataForVideo
 
 
 def test_init(tmpdir):
-    od = ObjectDataForVideo(os.path.join(tmpdir, 'data.json'))
+    ObjectDataForVideo(os.path.join(tmpdir, 'data.json'))
 
 
 def test_append(tmpdir):

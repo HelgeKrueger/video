@@ -3,9 +3,6 @@ from lib.object_data import ObjectData
 import argparse
 import os
 
-import pandas as pd
-
-
 import logging
 
 # get TF logger

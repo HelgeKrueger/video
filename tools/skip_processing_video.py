@@ -1,5 +1,6 @@
 from lib.data import VideoFileSegments
 import argparse
+import sys
 
 parser = argparse.ArgumentParser(description='skips current video')
 args = parser.parse_args()

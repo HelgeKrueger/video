@@ -3,9 +3,6 @@ import argparse
 import cv2
 import numpy as np
 
-import tensorflow as tf
-import tensorflow_hub as hub
-
 from moviepy.editor import VideoFileClip
 
 from detector import Detector

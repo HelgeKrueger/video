@@ -19,7 +19,7 @@ class ObjectDataForVideo():
     def append_data(self, data):
         self.data.append(data)
 
-    def append_raw_data(self, data):
+    def append_raw_data(self, result):
         if self.filter_threshold:
             good = result['detection_scores'] > self.filter_threshold
         else:

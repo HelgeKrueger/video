@@ -18,7 +18,7 @@ def test_description_with_style_transfer():
     assert "\n\n" in description
 
 
-def test_description_with_style_transfer():
+def test_description_with_style_transfer_two():
     image_url = 'http://url'
     pi = ProcessingInformation(filename='/tmp/test_file.json')
     pi.set_style_transfer_image(image_url)

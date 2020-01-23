@@ -1,9 +1,6 @@
 import argparse
-import os
 
 from datetime import date
-
-import pandas as pd
 
 from lib import Strava
 from lib.data import MetaInformation

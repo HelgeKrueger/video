@@ -1,17 +1,12 @@
 from lib.image import Detector
 from lib.data import ProcessingInformation
 from lib.data import VideoFileSegments
-import tensorflow as tf
 import argparse
 import os
 import json
+import sys
 
-from moviepy.editor import *
-import cv2
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+from moviepy.editor import VideoFileClip
 
 import logging
 

@@ -2,7 +2,6 @@ import httplib2
 import os
 from glob import glob
 
-import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 
