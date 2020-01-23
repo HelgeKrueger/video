@@ -10,7 +10,12 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import run_flow
 
-scopes = ["https://www.googleapis.com/auth/youtube.upload"]
+scopes = [
+    "https://www.googleapis.com/auth/youtube.upload",
+    "https://www.googleapis.com/auth/youtube.readonly"
+]
+
+httplib2.debuglevel = 4
 
 
 class YouTube:
@@ -27,7 +32,7 @@ class YouTube:
 
         if credentials is None or credentials.invalid:
             flow = flow_from_clientsecrets(
-                client_secrets_file, scope=scopes[0])
+                client_secrets_file, scope=scopes)
             credentials = run_flow(flow, storage, http=httplib2.Http())
 
         self.credentials = credentials
@@ -76,3 +81,10 @@ class YouTube:
             print(err)
             print(err.content)
             print(err.error_details)
+
+    def video_categories(self):
+        request = self.youtube.videoCategories().list(
+            part="snippet",
+            regionCode="US"
+        )
+        return request.execute()

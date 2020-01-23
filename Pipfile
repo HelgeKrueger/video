@@ -27,6 +27,8 @@ requests = "*"
 pandas = "*"
 httplib2 = "==0.15.0"
 flake8 = "*"
+prompt-toolkit = "*"
+ptable = "*"
 
 [requires]
 python_version = "3.7"
