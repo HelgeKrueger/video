@@ -20,7 +20,7 @@ class YouTube:
         self.youtube = None
 
     def get_credentials(self):
-        client_secrets_files  = glob("./secrets/client_secret_*.json")
+        client_secrets_files = glob("./secrets/client_secret_*.json")
         client_secrets_file = client_secrets_files[0]
 
         storage = Storage(self.storage_file)
