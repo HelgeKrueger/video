@@ -5,6 +5,7 @@ from prettytable import PrettyTable
 from lib.commands import list_videos, next_video, watch_video, config, upload_video
 
 import sys
+import os
 
 
 def exit():
@@ -21,6 +22,10 @@ def help_text():
     print(table)
 
 
+def download():
+    os.system("./tools/download.sh")
+
+
 commands = {
     'exit': {'func': exit, 'help': 'exists the program'},
     'help': {'func': help_text, 'help': 'displays this help'},
@@ -28,7 +33,8 @@ commands = {
     'next': {'func': next_video, 'help': 'extracts the next video piece labeled as unseen'},
     'watch': {'func': watch_video, 'help': 'watch current video'},
     'upload': {'func': upload_video, 'help': 'upload current video'},
-    'config': {'func': config, 'help': 'runs configuration commands'}
+    'config': {'func': config, 'help': 'runs configuration commands'},
+    'download': {'func': download, 'help': 'downloads videos form sd card'},
 }
 
 cmd_completer = WordCompleter(commands.keys())

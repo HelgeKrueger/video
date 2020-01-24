@@ -24,10 +24,10 @@ class ObjectDataForVideo():
             good = result['detection_scores'] > self.filter_threshold
         else:
             good = np.ones_like(result['detection_scores'], dtype=bool)
-        boxes = result['detection_boxes'][good].tolist()
-        scores = result['detection_scores'][good].tolist()
+        boxes = result['detection_boxes'][good].numpy().tolist()
+        scores = result['detection_scores'][good].numpy().tolist()
         entities = [b.decode('ascii')
-                    for b in result['detection_class_entities'][good].tolist()]
+                    for b in result['detection_class_entities'][good].numpy().tolist()]
         self.append_data({
             'boxes': boxes,
             'scores': scores,
