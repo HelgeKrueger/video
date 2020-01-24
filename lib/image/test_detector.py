@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 
-@pytest.mark.skipif(not os.path.exist('tf_hub_cache'), reason="No cached TF models")
+@pytest.mark.skipif(not os.path.exists('tf_hub_cache'), reason="No cached TF models")
 def test_detection():
     d = Detector(module_handle="https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1")
     result = d.detect(np.zeros([10, 10, 3]))
