@@ -35,4 +35,4 @@ class ObjectDataForVideo():
         })
 
     def save(self):
-        json.dump(self.data, open(self.filename))
+        json.dump(self.data, open(self.filename, 'w'))
