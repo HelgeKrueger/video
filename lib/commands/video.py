@@ -69,3 +69,10 @@ def upload_video():
     vfs.update_status_from_to('processing', 'youtube')
     vfs.save()
     pi.done()
+
+
+commands = {
+    'next': {'func': next_video, 'help': 'extracts the next video piece labeled as unseen'},
+    'watch': {'func': watch_video, 'help': 'watch current video'},
+    'upload': {'func': upload_video, 'help': 'upload current video'},
+}
