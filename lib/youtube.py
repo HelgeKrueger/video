@@ -15,7 +15,7 @@ scopes = [
     "https://www.googleapis.com/auth/youtube.readonly"
 ]
 
-httplib2.debuglevel = 4
+httplib2.debuglevel = 2
 
 
 class YouTube:
