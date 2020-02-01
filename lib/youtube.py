@@ -15,8 +15,6 @@ scopes = [
     "https://www.googleapis.com/auth/youtube.readonly"
 ]
 
-httplib2.debuglevel = 2
-
 
 class YouTube:
     def __init__(self, storage_file='./secrets/credentials.storage'):
