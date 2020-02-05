@@ -6,6 +6,7 @@ from prompt_toolkit.validation import Validator
 
 from moviepy.editor import VideoFileClip
 
+from lib.image import StyleTransfer
 from lib.data import VideoFile
 from lib.data import VideoFileSegments
 from lib.data import ProcessingInformation
@@ -126,10 +127,42 @@ def cut_end():
     os.rename('/tmp/video.mp4', video_filename)
 
 
+def style_transfer():
+    vfs = VideoFileSegments()
+
+    if vfs.count_with_status('processing') != 1:
+        print("Need to process exactly one video")
+        sys.exit(1)
+
+    processing = vfs.get_first_with_status('processing')
+    video_filename = processing['video_file']
+
+    default_style_image = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg'
+    print(f"Leave blank for default style image {default_style_image}")
+
+    style_image = prompt("Style image >>>> ")
+    if style_image == '':
+        style_image = default_style_image
+
+    pi = ProcessingInformation()
+    pi.set_style_transfer_image(style_image)
+    pi.save()
+
+    st = StyleTransfer(style_image=style_image)
+    vid = VideoFileClip(video_filename)
+    vid2 = vid.fl_image(st.transform_frame)
+
+    tmp_file_name = '/tmp/tmp_video_style_transfer.mp4'
+    vid2.write_videofile(tmp_file_name)
+
+    os.rename(tmp_file_name, video_filename)
+
+
 commands = {
     'next': {'func': next_video, 'help': 'extracts the next video piece labeled as unseen'},
     'watch': {'func': watch_video, 'help': 'watch current video'},
     'upload': {'func': upload_video, 'help': 'upload current video'},
     'cut_start': {'func': cut_start, 'help': 'removes piece from start of video'},
-    'cut_end': {'func': cut_end, 'help': 'removes piece from end of video'}
+    'cut_end': {'func': cut_end, 'help': 'removes piece from end of video'},
+    'style_transfer': {'func': style_transfer, 'help': 'applies a style transfer neural network to each image'}
 }
